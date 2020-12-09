@@ -4,6 +4,9 @@
 // output: ['is', 'a', 'split', 'sentence.', 'This']
 
 function rearranger(arr) {
+    let arrayFix = `${arr.splice(0, 1)}`
+    arr.push(arrayFix)
+    return arr
 }
 
 
@@ -16,6 +19,15 @@ function rearranger(arr) {
 // output: 42
 
 function largestNum(arr) {
+    let biggest = 0
+    let i = 0
+    while (i <= arr.length) {
+        if (arr[i] > biggest) {
+            biggest = arr[i]
+        }
+        i++
+    }
+    return biggest
 }
 
 
@@ -28,8 +40,14 @@ function largestNum(arr) {
 // output: [16, 8, 4, 28]
 
 function elemsTimesLength(arr) {
+    let lengthy = arr.length
+    for (let i = 0; i <= lengthy; i++) {
+        let snip = arr.splice(i, 1)
+        snip *= lengthy
+        arr.splice(i, 0, snip)
+    }
+    return arr
 }
-
 
 // ------------------------------------------
 
@@ -63,10 +81,18 @@ let flights = [{
 
 function flightCost(destination, firstClass) {
     //***hint: use the find method***
+    for (let i = 0; i <= flights.length; i++) {
+        const fly = flights[i]
+        if (fly.to === destination.toUpperCase()) {
 
+            if (!firstClass) {
+                return fly.prices.standard
+            } else {
+                return fly.prices.firstClass
+            }
+        }
+    }
 }
-
-
 // ------------------------------------------
 
 
@@ -83,10 +109,11 @@ let staff = [{ id: 1, name: 'Jon' }, { id: 2, name: 'Yuli' }, { id: 21, name: 'P
 { id: 17, name: 'St. MaryLou de la Playa Carmen' }, { id: 51, name: 'Doug' },
 { id: 881, name: 'Paul' }, { id: 0, name: 'Jon' }, { id: 999, name: 'Timma' }]
 
-function findById(id) {
-
+function findById(ref) {
+    let error = { error: "No user with that id." }
+    let info = staff.findIndex(self => self.id === ref)
+    if (info == -1) { return error } else { return staff[info] }
 }
-
 
 // ------------------------------------------
 
@@ -111,4 +138,11 @@ let theBand = {
 }
 
 function bandMemberDetails(name) {
+    let mate = theBand.members.findIndex(nombre => nombre.name === name)
+    let person = theBand.members[mate].name
+    console.log(person)
+    let instrument = theBand.members[mate].instrument
+    console.log(instrument)
+    let artist = person + " is in the band and plays the " + instrument
+    if (mate != -1) { return artist }
 }
